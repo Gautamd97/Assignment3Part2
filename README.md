@@ -2,13 +2,15 @@
 
 This repository constists of files required to configure a script to run everyday at 05:00 while using a load balancer.
 
-## Creating two droplets
+## Create two droplets
 
 For this project, you will need to create 2 droplets in the same region with the same tag. The tag will be used in the load balancer
 
 ## Create a load balancer
 
-For this project, create a load balancer in the same region as the two droplets. Make sure to select the tag you used earlier in the load balancer. This will put the droplets under the load balancer.
+A Load Balancer is a system that distributes traffic into two or more servers. It's purpose is to ensure no server gets overwhelmed and delivers better performance.
+
+Create a load balancer in the same region as the two droplets. Make sure to select the tag you used earlier in the load balancer. This will put the droplets under the load balancer.
 
 ## Set up the droplets
 
@@ -17,11 +19,11 @@ Before we go any further, you will need to make sure your servers are up to date
 ```bash 
 sudo pacman -Syu
 ```
+This command synchronizes and updated the system
 ```bash
 sudo pacman -S git tree nginx neovim ufw
 ```
-These commands will install the packages required for this project.
-
+This command installs the nexcessary packages required for this project.
 
 ## Creating a User
 For this task, you will need to create a user with no login and ownership of a directory and its subdirectories.
@@ -51,6 +53,32 @@ This command will create a new directory for the user webgen and also create sub
 sudo chown -R webgen:webgen /var/lib/webgen
 ```
 This command sets the ownership of the directory "webgen" and all its subdirectories to the user webgen.
+
+## Nginx
+
+In the nginx folder, you will need to create a sites-available and sites-enabled folder. The sites-available folder will have a configuration file which will be linked to sites-enabled later.
+
+We do this to make sure the original nginx.conf file does not get affected. This allows for better error-handling.
+
+Go into /etc/nginx folder and run the below commands
+
+```bash
+sudo mkdir sites-available
+sudo mkdir sites-enabled
+```
+
+# We .......
+
+## Git clone
+
+Git clone this repository into the webgen folder and use the below commands
+
+```bash
+sudo mv /var/lib/webgen/generate_index var/lib/webgen/bin
+sudo mv /var/lib/webgen/generateindex.timer /etc/systemd/system
+sudo mv /var/lib/webgen/generateindex.service /etc/systemd/system
+sudo mv /var/lib/webgen/server.config /etc/nginx/sites-available
+```
 
 ## Benefits of a system user
 
