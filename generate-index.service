@@ -1,0 +1,13 @@
+[Unit]
+Description=Generate system information HTML file
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=/var/lib/webgen/bin/generate_index
+User=webgen
+Group=webgen
+WorkingDirectory=/var/lib/webgen
+
+[Install]
+WantedBy=multi-user.target
