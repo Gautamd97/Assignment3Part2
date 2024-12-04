@@ -1,6 +1,6 @@
 # Assignment 3 Part 2
 
-This repository constists of files required to configure a script to run everyday at 05:00 while using a load balancer.
+This repository consists of files required to configure a script to run everyday at 05:00 while using a load balancer.
 
 ## Create two droplets
 
@@ -14,16 +14,22 @@ Create a load balancer in the same region as the two droplets. Make sure to sele
 
 ## Set up the droplets
 
-Before we go any further, you will need to make sure your servers are up to date with the packages. Run the below commands
+Before we go any further, you will need to make sure your servers are up to date with the packages.
+
+Packages required for this project: git, nginx, neovim, ufw, tree. Run the below command to install these packages.
 
 ```bash 
 sudo pacman -Syu
 ```
-This command synchronizes and updated the system
+This command synchronizes and updates the system
 ```bash
 sudo pacman -S git tree nginx neovim ufw
 ```
-This command installs the nexcessary packages required for this project.
+Run nginx with the following command
+
+```bash
+sudo systemctl start nginx
+```
 
 ## Creating a User
 For this task, you will need to create a user with no login and ownership of a directory and its subdirectories.
@@ -67,18 +73,28 @@ sudo mkdir sites-available
 sudo mkdir sites-enabled
 ```
 
-# We .......
-
 ## Git clone
 
 Git clone this repository into the webgen folder and use the below commands
 
 ```bash
-sudo mv /var/lib/webgen/generate_index var/lib/webgen/bin
+sudo mv /var/lib/webgen/generate_index /var/lib/webgen/bin
 sudo mv /var/lib/webgen/generateindex.timer /etc/systemd/system
 sudo mv /var/lib/webgen/generateindex.service /etc/systemd/system
 sudo mv /var/lib/webgen/server.config /etc/nginx/sites-available
+sudo mv /var/lib/webgen/file-one /var/lib/webgen/Documents
+sudo mv /var/lib/webgen/file-two /var/lib/webgen/Documents
 ```
+At this point, you can run the "Setting the ownership" command again to ensure the ownership of the files.
+
+## Nginx configuration
+Run the below command to create a symlink
+```bash
+sudo ln -s /etc/nginx/sites-available/server.conf /etc/nginx/sites-enabled/server.conf
+```
+
+In the main nignx.conf file, under the HTML block, add "include sites-enabled/*;". 
+This will ensure that any server blocks that we add in the sites-enabled folder will be added to the nginx configuration file without directly changing the config file.
 
 ## Benefits of a system user
 
