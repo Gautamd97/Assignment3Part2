@@ -1,6 +1,27 @@
 # Assignment 3 Part 2
 
-This repository constists of files required to configure a script to run everyday at 05:00. The first step is to create a new user
+This repository constists of files required to configure a script to run everyday at 05:00 while using a load balancer.
+
+## Creating two droplets
+
+For this project, you will need to create 2 droplets in the same region with the same tag. The tag will be used in the load balancer
+
+## Create a load balancer
+
+For this project, create a load balancer in the same region as the two droplets. Make sure to select the tag you used earlier in the load balancer. This will put the droplets under the load balancer.
+
+## Set up the droplets
+
+Before we go any further, you will need to make sure your servers are up to date with the packages. Run the below commands
+
+```bash 
+sudo pacman -Syu
+```
+```bash
+sudo pacman -S git tree nginx neovim ufw
+```
+These commands will install the packages required for this project.
+
 
 ## Creating a User
 For this task, you will need to create a user with no login and ownership of a directory and its subdirectories.
