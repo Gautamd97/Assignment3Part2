@@ -64,7 +64,7 @@ This command sets the ownership of the directory "webgen" and all its subdirecto
 
 In the nginx folder, you will need to create a sites-available and sites-enabled folder. The sites-available folder will have a configuration file which will be linked to sites-enabled later.
 
-We do this to make sure the original nginx.conf file does not get affected. This allows for better error-handling.
+We do this to make sure the original nginx.conf file does not get affected. This allows for better error-handling. It also allows to easily enable or disable certain sites.
 
 Go into /etc/nginx folder and run the below commands
 
@@ -99,13 +99,17 @@ If you run the "tree" command in the webgen folder, it should look like the belo
 ![Tree](assets/tree.png)
 
 The index.html may not show yet as you have not run the timer script yet. 
+
 ## Nginx configuration
+
 Run the below command to create a symlink
 ```bash
 sudo ln -s /etc/nginx/sites-available/server.conf /etc/nginx/sites-enabled/server.conf
 ```
+This symbolic link is created so that you can easily manage the configuration files through the the sites enabled without directly modifying the main nginx or sites available configuration files.
 
 In the main nignx.conf file, under the HTML block, add "include sites-enabled/*;". 
+
 This will ensure that any server blocks that we add in the sites-enabled folder will be added to the nginx configuration file without directly changing the config file.
 
 ## Enabling the timer:
@@ -147,3 +151,11 @@ It is important to set up a new config file for nginx rather than making changes
 sudo ufw status verbose
 ```
 This command will show what the firewalls allows for incoming and outgoing.
+
+## References
+
+ArchWiki. (n.d.). Nginx. Arch Linux. Retrieved December 3, 2024, from https://wiki.archlinux.org/title/Nginx
+
+McNinch, N. (n.d.). Week thirteen notes. GitLab. Retrieved December 3, 2024, from https://gitlab.com/cit2420/2420-notes-f24/-/blob/main/2420-notes/week-thirteen.md
+
+McNinch, N. (n.d.). Week twelve notes. GitLab. Retrieved December 3, 2024, from https://gitlab.com/cit2420/2420-notes-f24/-/blob/main/2420-notes/week-twelve.md
