@@ -78,6 +78,10 @@ sudo mkdir sites-enabled
 Git clone this repository into the webgen folder and use the below commands
 
 ```bash
+sudo git clone <link to repo>
+```
+
+```bash
 sudo mv /var/lib/webgen/generate_index /var/lib/webgen/bin
 sudo mv /var/lib/webgen/generateindex.timer /etc/systemd/system
 sudo mv /var/lib/webgen/generateindex.service /etc/systemd/system
@@ -85,12 +89,16 @@ sudo mv /var/lib/webgen/server.config /etc/nginx/sites-available
 sudo mv /var/lib/webgen/file-one /var/lib/webgen/Documents
 sudo mv /var/lib/webgen/file-two /var/lib/webgen/Documents
 ```
+
+After this step, you should update the server.conf file with the IP address of your server.
+
 At this point, you can run the "Setting the ownership" command again to ensure the ownership of the files.
 
 If you run the "tree" command in the webgen folder, it should look like the below.
 
 ![Tree](assets/tree.png)
 
+The index.html may not show yet as you have not run the timer script yet. 
 ## Nginx configuration
 Run the below command to create a symlink
 ```bash
@@ -100,19 +108,21 @@ sudo ln -s /etc/nginx/sites-available/server.conf /etc/nginx/sites-enabled/serve
 In the main nignx.conf file, under the HTML block, add "include sites-enabled/*;". 
 This will ensure that any server blocks that we add in the sites-enabled folder will be added to the nginx configuration file without directly changing the config file.
 
+## Enabling the timer:
+
+``` bash
+sudo systemctl enable --now generate-index.timer
+```
+This command will enable and start the timer. It should also create the index.html script under HTML. You can check this by running the "tree" command in the webgen folder.
+
+Now, you should be able to run the load balancer's IP on the web.
+
 ## Benefits of a system user
 
 Having a system user for this activity will allow us to prevent any accidental changes to the system. The user will have limited permissions.
 
 ## Troubleshooting
 In this activity, there are times where you will need to check if the files are running or not. The below commands may help
-
-### Enabling the timer:
-
-``` bash
-sudo systemctl enable --now generate-index.timer
-```
-This command will enable and start the timer
 
 ### Checking logs and confirming service's execution:
 
