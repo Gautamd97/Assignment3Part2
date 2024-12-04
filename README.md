@@ -87,6 +87,10 @@ sudo mv /var/lib/webgen/file-two /var/lib/webgen/Documents
 ```
 At this point, you can run the "Setting the ownership" command again to ensure the ownership of the files.
 
+If you run the "tree" command in the webgen folder, it should look like the below.
+
+![Tree](assets/tree.png)
+
 ## Nginx configuration
 Run the below command to create a symlink
 ```bash
